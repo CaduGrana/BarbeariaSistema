@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbearia Corte Nobre - Calendário</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="advanced-animations.css">
+</head>
+
+<body class="min-h-screen flex flex-col bg-gradient-main">
+
+  <!-- Header -->
+  <header class="header-gradient text-white shadow-lg">
+    <div class="container mx-auto px-4 py-6">
+      <h1 class="text-3xl md:text-4xl font-bold text-center tracking-wider">BARBEARIA CORTE NOBRE</h1>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-md border-b">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-center space-x-8">
+        <a href="index.html" class="px-4 py-3 nav-link hover:text-blue-600 font-semibold transition-colors">Agendar Horário</a>
+        <a href="calendario.html" class="px-4 py-3 nav-active border-b-2 font-semibold">Calendário</a>
+        <a href="gerenciar.html" class="px-4 py-3 nav-link hover:text-blue-600 font-semibold transition-colors">Gerenciar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto p-4 flex items-center justify-center">
+    <section class="card-calendar bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl">
+      <h2 class="text-2xl font-bold text-blue-600 text-center mb-6 flex items-center justify-center gap-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+        </svg>
+        Calendário de Agendamentos
+      </h2>
+
+      <!-- Calendar Header -->
+      <div class="calendar-header flex items-center justify-between mb-6">
+        <button id="prevMonthBtn" class="calendar-nav-btn bg-gradient-to-r from-gray-200 to-gray-300 hover:from-blue-100 hover:to-blue-200 px-4 py-2 rounded-lg font-semibold transition-all">
+          ← Anterior
+        </button>
+        <h3 id="currentMonthYear" class="calendar-title text-xl font-bold text-blue-600">Mês Ano</h3>
+        <button id="nextMonthBtn" class="calendar-nav-btn bg-gradient-to-r from-gray-200 to-gray-300 hover:from-blue-100 hover:to-blue-200 px-4 py-2 rounded-lg font-semibold transition-all">
+          Próximo →
+        </button>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div class="calendar-grid-container border rounded-lg overflow-hidden">
+        <!-- Week Days Header -->
+        <div class="calendar-weekdays grid grid-cols-7 bg-gray-100">
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Dom</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Seg</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Ter</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Qua</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Qui</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700 border-r">Sex</div>
+          <div class="weekday p-3 text-center font-semibold text-gray-700">Sáb</div>
+        </div>
+        
+        <!-- Calendar Days -->
+        <div id="calendarDaysGrid" class="calendar-days-grid grid grid-cols-7">
+          <!-- Days will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal for Daily Appointments -->
+  <div id="dailyAppointmentsModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+    <div class="modal-content bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+      <div class="modal-header flex justify-between items-center p-6 border-b">
+        <h3 id="modalDate" class="modal-title text-xl font-bold text-blue-600">Agendamentos para [Data]</h3>
+        <button id="closeDailyAppointmentsModalBtn" class="modal-close-btn text-gray-500 hover:text-gray-700 text-2xl font-bold">×</button>
+      </div>
+      <div class="modal-body p-6">
+        <ul id="dailyAppointmentsList" class="appointments-list space-y-4">
+          <!-- Appointments will be populated by JavaScript -->
+        </ul>
+        <p id="noAppointmentsMessage" class="no-appointments-message text-center text-gray-500 py-8 hidden">Nenhum agendamento para esta data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <p>&copy; 2023 Barbearia Corte Nobre. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="particle-system.js"></script>
+  <script src="sound-system.js"></script>
+  <script src="effects-coordinator.js"></script>
+  <script src="theme.js"></script>
+  <script type="module" src="calendario.js"></script>
+  <script src="page-transitions.js"></script>
+  <script src="parallax-effects.js"></script>
+  <script src="data-animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,811 @@
+/* Importação da fonte Segoe UI (Windows 11) e Inter como fallback */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap");
+
+/* Paleta de Cores com foco em Azul, Verde, Ciano e Limão */
+:root {
+  /* Cores Primárias - Azul */
+  --primary-blue: #0A72EA; /* Azul mais vibrante para destaque */
+  --primary-blue-light: #4D9AEF;
+  --primary-blue-dark: #0056B3;
+
+  /* Cores Secundárias - Verde Esmeralda e Limão */
+  --emerald-green: #28a745; /* Verde padrão mais forte */
+  --emerald-light: #4ade80; /* Limão esverdeado */
+  --emerald-dark: #218838;
+
+  /* Novas Cores de Destaque - Ciano e Verde Limão */
+  --cyan-accent: #17a2b8; /* Ciano vibrante */
+  --cyan-light: #20c997; /* Verde-água/Ciano claro */
+  --cyan-dark: #138496;
+
+  --lime-green: #76B900; /* Verde Limão vibrante */
+  --lime-light: #9FE600;
+  --lime-dark: #5C8D00;
+
+  --purple-accent: #8b5cf6; /* Mantido para contraste ou outros elementos */
+  --purple-light: #a78bfa;
+  --purple-dark: #7c3aed;
+
+  /* Tons de Cinza Modernos - Suavizados para harmonizar */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+
+  /* Backgrounds - Com gradientes mais suaves e tons de azul/verde */
+  --bg-primary: #ffffff;
+  --bg-secondary: var(--gray-50);
+  --bg-tertiary: var(--gray-100);
+  --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 50%, #e0f2f1 100%); /* Gradiente de azul claro e verde claro */
+  --bg-hero: linear-gradient(135deg, var(--primary-blue) 0%, var(--cyan-accent) 50%, var(--emerald-green) 100%); /* Gradiente de destaque */
+
+  /* Text Colors */
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --text-white: #ffffff;
+
+  /* Border Colors */
+  --border-color: var(--gray-200);
+  --border-hover: var(--gray-300);
+  --border-focus: var(--primary-blue);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+  /* Card & Glass Effects */
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+
+  /* Status Colors - Mantendo coerência com o novo tema */
+  --success: var(--emerald-green);
+  --warning: var(--lime-green); /* Usando o limão para warning */
+  --error: #dc3545; /* Um vermelho mais padrão para erros */
+  --info: var(--cyan-accent); /* Usando ciano para info */
+}
+
+/* Reset e configurações base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* Theme Toggle Button - Windows 11 Style */
+.theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--glass-bg);
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle:hover::before {
+  opacity: 1;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+.theme-toggle svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-primary);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(180deg) scale(1.1);
+}
+
+/* Header - Gradiente Chamativo */
+.header-gradient {
+  background: var(--bg-hero);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.header-gradient h1 {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation */
+nav {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-blue);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: var(--primary-blue);
+  background: var(--gray-50);
+}
+
+.nav-link:hover::before {
+  width: 80%;
+}
+
+.nav-active {
+  color: var(--primary-blue) !important;
+  background: var(--gray-50);
+  font-weight: 600;
+}
+
+.nav-active::before {
+  width: 100% !important;
+}
+
+/* Cards */
+.card-form,
+.card-calendar,
+.management-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-form::before,
+.card-calendar::before,
+.management-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--cyan-accent), var(--emerald-green)); /* Gradiente do card */
+}
+
+.card-form:hover,
+.card-calendar:hover,
+.management-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-blue-light);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.4;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(10, 114, 234, 0.1); /* Ajustado para o novo azul */
+  transform: translateY(-1px);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: var(--border-hover);
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+  color: var(--text-white);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, var(--primary-blue-light) 0%, var(--primary-blue) 100%);
+}
+
+.btn-secondary {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--error) 0%, #a03030 100%); /* Ajustado para o novo vermelho de erro */
+  color: var(--text-white);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, #e74c3c 0%, var(--error) 100%);
+}
+
+/* Calendar */
+.calendar-day {
+  min-height: 96px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border-radius: 8px;
+  margin: 2px;
+}
+
+.calendar-day:hover:not(.empty) {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: var(--gray-50);
+}
+
+.calendar-day.empty {
+  background: var(--gray-100);
+  cursor: default;
+  border-color: transparent;
+}
+
+.calendar-day.current-day {
+  border-color: var(--emerald-green) !important;
+  border-width: 2px !important;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(74, 203, 114, 0.1) 100%); /* Ajustado para o novo verde */
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.appointment-count {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, var(--error) 0%, #a03030 100%); /* Mantendo o vermelho para contagem de compromissos para destaque de atenção */
+  color: var(--text-white);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Items */
+.appointment-item,
+.barber-item {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.appointment-item:hover,
+.barber-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-left-color: var(--emerald-green);
+}
+
+.appointment-time {
+  color: var(--primary-blue);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.appointment-client,
+.appointment-barber,
+.appointment-phone,
+.appointment-email,
+.appointment-notes {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.barber-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-grow: 1;
+}
+
+.barber-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Modal */
+.modal {
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.modal.show {
+  display: flex !important;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-2xl);
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  background: var(--gray-50);
+}
+
+/* Calendar Navigation */
+.calendar-nav-btn {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav-btn:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Weekday Headers */
+.weekday {
+  background: var(--gray-100);
+  color: var(--text-primary);
+  border-right: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  background: var(--gray-800) !important;
+  color: var(--text-white) !important;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+.text-green-500 {
+  color: var(--success);
+}
+
+.text-red-500 {
+  color: var(--error);
+}
+
+.text-red-600 {
+  color: var(--error); /* Mantendo a cor de erro consistente */
+}
+
+.text-blue-600 {
+  color: var(--primary-blue);
+}
+
+/* Background Gradient */
+.bg-gradient-main {
+  background: var(--bg-gradient);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Management Layout */
+.management-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .management-columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.management-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  height: fit-content;
+}
+
+.management-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.management-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.management-form .form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.management-form .btn-primary {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.scrollable-section {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.scrollable-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-section::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: 3px;
+}
+
+.scrollable-section::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
+}
+
+.scrollable-section::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .card-form,
+  .card-calendar,
+  .management-card {
+    border-radius: 12px;
+    margin: 16px;
+  }
+
+  .calendar-day {
+    min-height: 64px;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .appointment-count {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .barber-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .barber-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .management-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .management-card {
+    padding: 1rem;
+  }
+
+  .management-card h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    padding: 14px 20px;
+    border-radius: 12px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --bg-primary: #ffffff;
+  }
+
+  [data-theme="dark"] {
+    --border-color: #ffffff;
+    --text-primary: #ffffff;
+    --bg-primary: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
